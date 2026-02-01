@@ -4,7 +4,7 @@ Donate link: https://github.com/deimos30
 Tags: lost, found, animals, dogs, cats, pets, shelter, rescue
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -79,6 +79,10 @@ Yes, the shortcode works with Elementor, Gutenberg, and other page builders.
 
 == Changelog ==
 
+= 1.0.3 =
+* Security: Added direct file access protection to template file
+* Improved: Code security hardening
+
 = 1.0.2 =
 * Fixed: Removed deprecated load_plugin_textdomain() call
 * Updated: Tested up to WordPress 6.9
@@ -93,6 +97,9 @@ Yes, the shortcode works with Elementor, Gutenberg, and other page builders.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+Security improvement: Added direct file access protection.
 
 = 1.0.2 =
 Updated for WordPress 6.9 compatibility. Removed deprecated function calls.

@@ -4,7 +4,7 @@
  *
  * @package Lost_Found_Animal
  * @author  Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

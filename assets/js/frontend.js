@@ -2,7 +2,7 @@
  * Lost & Found Animal - Frontend JS
  *
  * @author  Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 ( function( $ ) {
