@@ -11,3 +11,4 @@ WordPress plugin for managing lost and found animals (custom post type + shortco
 - PHP plugin entry: `lost-found-animal.php`
 - Includes: `/includes`
 - Templates: `/templates`
+
