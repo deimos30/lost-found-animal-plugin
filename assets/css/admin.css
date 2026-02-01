@@ -1,0 +1,107 @@
+/**
+ * Lost & Found Animal - Admin Styles
+ * 
+ * @author Wojtek Kobylecki / Bella Design Studio
+ * @version 1.0.1
+ */
+
+.lfa-help-box {
+    background: #e7f5ff;
+    border-left: 4px solid #0073aa;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.lfa-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lfa-table th {
+    text-align: left;
+    padding: 12px 16px 12px 0;
+    width: 140px;
+    vertical-align: top;
+    font-weight: 600;
+}
+
+.lfa-table td {
+    padding: 10px 0;
+}
+
+.lfa-table input[type="text"],
+.lfa-table input[type="date"],
+.lfa-table select {
+    width: 100%;
+    max-width: 320px;
+}
+
+/* Gallery */
+#lfa-gallery-wrapper {
+    padding: 10px 0;
+}
+
+#lfa-gallery-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    min-height: 80px;
+    padding: 16px;
+    background: #f9f9f9;
+    border: 2px dashed #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+#lfa-gallery-images:empty::before {
+    content: "No photos added. Click 'Add Photos' to add gallery images.";
+    color: #999;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 50px;
+}
+
+.lfa-gallery-item {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    background: #fff;
+}
+
+.lfa-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.lfa-remove-image {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    background: #dc3545;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.lfa-remove-image:hover {
+    background: #c82333;
+}
