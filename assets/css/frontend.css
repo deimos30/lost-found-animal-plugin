@@ -1,8 +1,8 @@
 /**
  * Lost & Found Animal - Frontend Styles
- * 
- * @author Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.1
+ *
+ * @author  Wojtek Kobylecki / Bella Design Studio
+ * @version 1.0.2
  */
 
 /* Reset */
@@ -179,7 +179,7 @@
 }
 
 .lfa-photo-count::before {
-    content: "📷 ";
+    content: "\1F4F7 ";
 }
 
 .lfa-no-photo {
