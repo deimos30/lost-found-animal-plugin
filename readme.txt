@@ -3,7 +3,7 @@ Contributors: deimos30
 Tags: lost, found, animals, dogs, cats, pets, shelter, rescue
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.1.0
+Stable tag: 1.0.4
 License: GPLv2 or later
 Author: Wojtek Kobylecki / Bella Design Studio
 
@@ -48,7 +48,7 @@ Example: `[lost_found_animals limit="8" columns="4"]`
 
 == Changelog ==
 
-= 1.1.0 =
+= 1.0.4 =
 * Added Settings page (Lost & Found Animals > Settings)
 * Configurable grid columns, animal limit, show/hide filters
 * Filter bar color picker

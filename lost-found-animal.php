@@ -3,7 +3,7 @@
  * Plugin Name: Lost & Found Animal
  * Plugin URI: https://github.com/deimos30/lost-found-animal-plugin
  * Description: Manage lost and found animals with photo gallery, filtering, and shortcode display. Works with any theme.
- * Version: 1.1.0
+ * Version: 1.0.4
  * Author: Wojtek Kobylecki / Bella Design Studio
  * Author URI: https://github.com/deimos30
  * License: GPL v2 or later
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('LFA_VERSION', '1.1.0');
+define('LFA_VERSION', '1.0.4');
 define('LFA_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('LFA_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('LFA_PLUGIN_BASENAME', plugin_basename(__FILE__));
