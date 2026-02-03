@@ -3,7 +3,7 @@
  * Plugin Name: Lost & Found Animal
  * Plugin URI: https://github.com/deimos30/lost-found-animal-plugin
  * Description: Manage lost and found animals with photo gallery, filtering, and shortcode display. Works with any theme.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Wojtek Kobylecki / Bella Design Studio
  * Author URI: https://github.com/deimos30
  * License: GPL v2 or later
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('LFA_VERSION', '1.0.1');
+define('LFA_VERSION', '1.1.0');
 define('LFA_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('LFA_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('LFA_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -43,6 +43,7 @@ final class Lost_Found_Animal {
     private function includes() {
         require_once LFA_PLUGIN_DIR . 'includes/class-post-type.php';
         require_once LFA_PLUGIN_DIR . 'includes/class-meta-boxes.php';
+        require_once LFA_PLUGIN_DIR . 'includes/class-settings.php';
         require_once LFA_PLUGIN_DIR . 'includes/class-shortcodes.php';
         require_once LFA_PLUGIN_DIR . 'includes/class-admin.php';
     }
@@ -81,6 +82,11 @@ final class Lost_Found_Animal {
         if ($should_load) {
             wp_enqueue_style('lfa-frontend', LFA_PLUGIN_URL . 'assets/css/frontend.css', array(), LFA_VERSION);
             wp_enqueue_script('lfa-frontend', LFA_PLUGIN_URL . 'assets/js/frontend.js', array('jquery'), LFA_VERSION, true);
+
+            $filter_bg = LFA_Settings::get('filter_bg', '#f5f5f4');
+            if ($filter_bg !== '#f5f5f4') {
+                wp_add_inline_style('lfa-frontend', '.lfa-filters{background:' . esc_attr($filter_bg) . ';}');
+            }
         }
     }
     

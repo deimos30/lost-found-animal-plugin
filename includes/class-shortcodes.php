@@ -4,7 +4,7 @@
  * 
  * @package Lost_Found_Animal
  * @author Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.1
+ * @version 1.1.0
  */
 
 if (!defined('ABSPATH')) exit;
@@ -26,11 +26,13 @@ class LFA_Shortcodes {
     }
     
     public function render_grid($atts) {
+        $show_filters_default = LFA_Settings::get('show_filters', 'yes') === 'yes' ? 'true' : 'false';
+
         $atts = shortcode_atts(array(
-            'limit' => -1,
+            'limit' => LFA_Settings::get('limit', -1),
             'status' => '',
-            'columns' => 4,
-            'show_filters' => 'true',
+            'columns' => LFA_Settings::get('columns', 4),
+            'show_filters' => $show_filters_default,
         ), $atts);
         
         $args = array(
