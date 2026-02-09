@@ -4,7 +4,7 @@
  *
  * @package Lost_Found_Animal
  * @author  Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.3
+ * @version 1.0.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,18 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class LFA_Post_Type {
 
-    /**
-     * Single instance
-     *
-     * @var LFA_Post_Type|null
-     */
     private static $instance = null;
 
-    /**
-     * Get instance
-     *
-     * @return LFA_Post_Type
-     */
     public static function instance() {
         if ( is_null( self::$instance ) ) {
             self::$instance = new self();
@@ -35,16 +25,10 @@ class LFA_Post_Type {
         return self::$instance;
     }
 
-    /**
-     * Constructor
-     */
     private function __construct() {
         add_action( 'init', array( $this, 'register' ) );
     }
 
-    /**
-     * Register post type
-     */
     public function register() {
         $labels = array(
             'name'               => __( 'Animals', 'lost-found-animal' ),
@@ -75,12 +59,11 @@ class LFA_Post_Type {
             'menu_position'       => 5,
             'menu_icon'           => 'dashicons-pets',
             'supports'            => array( 'title', 'editor', 'thumbnail' ),
-            'show_in_rest'        => false, // Disables Gutenberg - uses Classic Editor
+            'show_in_rest'        => false,
         );
 
         register_post_type( 'animal', $args );
     }
 }
 
-// Initialize
 LFA_Post_Type::instance();

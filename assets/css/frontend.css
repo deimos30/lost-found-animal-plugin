@@ -2,280 +2,329 @@
  * Lost & Found Animal - Frontend Styles
  *
  * @author  Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.3
+ * @version 1.0.5
  */
 
-/* Reset */
-.lfa-container * {
-    box-sizing: border-box;
+/* =========================
+   RESET & CONTAINER
+   ========================= */
+
+.lfa-container *,
+.lfa-container *::before,
+.lfa-container *::after {
+    box-sizing: border-box !important;
 }
 
 .lfa-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 16px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    padding: 0 16px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
-/* Filters */
+/* =========================
+   FILTER BAR - SINGLE LINE
+   ========================= */
+
 .lfa-filters {
-    background: #f5f5f4;
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-}
-
-.lfa-filters-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-}
-
-.lfa-count {
-    color: #78716c;
-    font-size: 14px;
-}
-
-.lfa-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    background: #f5f5f4 !important;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    margin-bottom: 24px !important;
+    width: auto !important;
 }
 
 .lfa-select {
-    padding: 8px 32px 8px 12px;
-    border: 1px solid #d6d3d1;
-    border-radius: 6px;
-    background: #fff;
-    font-size: 14px;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2378716c' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
+    display: inline-block !important;
+    width: auto !important;
+    min-width: 120px !important;
+    max-width: 160px !important;
+    padding: 8px 32px 8px 12px !important;
+    margin: 0 !important;
+    border: 1px solid #d6d3d1 !important;
+    border-radius: 6px !important;
+    background-color: #fff !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2378716c' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    cursor: pointer !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
 }
 
 .lfa-select:focus {
-    outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16,185,129,0.15);
+    outline: none !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.15) !important;
 }
 
 .lfa-reset {
-    padding: 8px 16px;
-    background: #e7e5e4;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s;
+    display: inline-block !important;
+    width: auto !important;
+    padding: 8px 16px !important;
+    margin: 0 !important;
+    background: #e7e5e4 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+    white-space: nowrap !important;
 }
 
 .lfa-reset:hover {
-    background: #d6d3d1;
+    background: #d6d3d1 !important;
 }
 
-/* Grid */
+.lfa-count {
+    display: inline-block !important;
+    color: #78716c !important;
+    font-size: 13px !important;
+    margin-left: auto !important;
+    white-space: nowrap !important;
+}
+
+/* Mobile: Stack vertically */
+@media (max-width: 768px) {
+    .lfa-filters {
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        align-items: stretch !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .lfa-select {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: auto !important;
+    }
+
+    .lfa-reset {
+        width: 100% !important;
+    }
+
+    .lfa-count {
+        margin-left: 0 !important;
+        text-align: center !important;
+        margin-top: 8px !important;
+    }
+}
+
+/* =========================
+   GRID
+   ========================= */
+
 .lfa-grid {
-    display: grid;
-    gap: 24px;
+    display: grid !important;
+    gap: 24px !important;
 }
 
-.lfa-cols-1 { grid-template-columns: 1fr; }
-.lfa-cols-2 { grid-template-columns: repeat(2, 1fr); }
-.lfa-cols-3 { grid-template-columns: repeat(3, 1fr); }
-.lfa-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.lfa-cols-1 { grid-template-columns: 1fr !important; }
+.lfa-cols-2 { grid-template-columns: repeat(2, 1fr) !important; }
+.lfa-cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+.lfa-cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
 
 @media (max-width: 1024px) {
-    .lfa-cols-3, .lfa-cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .lfa-cols-3, .lfa-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
 @media (max-width: 640px) {
-    .lfa-cols-2, .lfa-cols-3, .lfa-cols-4 { grid-template-columns: 1fr; }
-    .lfa-controls { width: 100%; }
-    .lfa-select { flex: 1; }
+    .lfa-cols-2, .lfa-cols-3, .lfa-cols-4 { grid-template-columns: 1fr !important; }
 }
 
-/* Card */
+/* =========================
+   CARD
+   ========================= */
+
 .lfa-card {
-    background: #fafaf9;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #e7e5e4;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    transition: box-shadow 0.2s, transform 0.2s;
+    background: #fafaf9 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    border: 1px solid #e7e5e4 !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+    transition: box-shadow 0.2s, transform 0.2s !important;
 }
 
 .lfa-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+    transform: translateY(-2px) !important;
 }
 
 .lfa-card-image {
-    display: block;
-    position: relative;
-    height: 220px;
-    overflow: hidden;
-    background: #e7e5e4;
+    display: block !important;
+    position: relative !important;
+    height: 220px !important;
+    overflow: hidden !important;
+    background: #e7e5e4 !important;
 }
 
 .lfa-gallery-hover {
-    width: 100%;
-    height: 100%;
-    position: relative;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
 }
 
 .lfa-gallery-hover img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.3s;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s !important;
 }
 
 .lfa-gallery-hover img.active {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .lfa-dots {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 4px;
-    z-index: 5;
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    gap: 4px !important;
+    z-index: 5 !important;
 }
 
 .lfa-dots span {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    transition: all 0.2s;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.5) !important;
+    transition: all 0.2s !important;
 }
 
 .lfa-dots span.active {
-    background: #fff;
-    width: 16px;
-    border-radius: 3px;
+    background: #fff !important;
+    width: 16px !important;
+    border-radius: 3px !important;
 }
 
 .lfa-photo-count {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: rgba(0,0,0,0.6);
-    color: #fff;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    z-index: 5;
+    position: absolute !important;
+    bottom: 8px !important;
+    right: 8px !important;
+    background: rgba(0,0,0,0.6) !important;
+    color: #fff !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    z-index: 5 !important;
 }
 
 .lfa-photo-count::before {
-    content: "\1F4F7 ";
+    content: "\1F4F7 " !important;
 }
 
 .lfa-no-photo {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #a8a29e;
-    font-size: 14px;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #a8a29e !important;
+    font-size: 14px !important;
 }
 
 .lfa-badge {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 4px 8px;
-    border-radius: 4px;
-    z-index: 5;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    color: #fff !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    z-index: 5 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
 }
 
 /* Card body */
 .lfa-card-body {
-    padding: 16px;
+    padding: 16px !important;
 }
 
 .lfa-card-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 8px;
-    line-height: 1.3;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    margin: 0 0 8px !important;
+    line-height: 1.3 !important;
 }
 
 .lfa-card-title a {
-    color: #292524;
-    text-decoration: none;
-    transition: color 0.2s;
+    color: #292524 !important;
+    text-decoration: none !important;
+    transition: color 0.2s !important;
 }
 
 .lfa-card-title a:hover {
-    color: #059669;
+    color: #059669 !important;
 }
 
 .lfa-card-location {
-    font-size: 14px;
-    color: #78716c;
-    margin: 0 0 12px;
+    font-size: 14px !important;
+    color: #78716c !important;
+    margin: 0 0 12px !important;
 }
 
 .lfa-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 12px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-bottom: 12px !important;
 }
 
 .lfa-tag {
-    font-size: 12px;
-    background: #e7e5e4;
-    color: #57534e;
-    padding: 4px 8px;
-    border-radius: 4px;
+    font-size: 12px !important;
+    background: #e7e5e4 !important;
+    color: #57534e !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
 }
 
 .lfa-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: #059669;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    background: #059669 !important;
     color: #fff !important;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.2s;
+    padding: 10px 16px !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
 }
 
 .lfa-btn:hover {
-    background: #047857;
+    background: #047857 !important;
     color: #fff !important;
 }
 
 /* Empty */
 .lfa-empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 48px 16px;
-    color: #78716c;
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+    padding: 48px 16px !important;
+    color: #78716c !important;
 }
 
 /* =========================
@@ -283,341 +332,341 @@
    ========================= */
 
 .lfa-single {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px 16px;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 32px 16px !important;
 }
 
 .lfa-breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    margin-bottom: 24px;
-    color: #78716c;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 14px !important;
+    margin-bottom: 24px !important;
+    color: #78716c !important;
 }
 
 .lfa-breadcrumb a {
-    color: #78716c;
-    text-decoration: none;
+    color: #78716c !important;
+    text-decoration: none !important;
 }
 
 .lfa-breadcrumb a:hover {
-    color: #059669;
+    color: #059669 !important;
 }
 
 .lfa-single-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 48px !important;
 }
 
 @media (max-width: 900px) {
     .lfa-single-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
     }
 }
 
 /* Gallery */
 .lfa-main-photo {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #f5f5f4;
-    margin-bottom: 12px;
+    position: relative !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: #f5f5f4 !important;
+    margin-bottom: 12px !important;
 }
 
 .lfa-main-photo img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-    display: block;
-    cursor: zoom-in;
+    width: 100% !important;
+    height: 450px !important;
+    object-fit: cover !important;
+    display: block !important;
+    cursor: zoom-in !important;
 }
 
 .lfa-main-badge {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 999px;
+    position: absolute !important;
+    top: 16px !important;
+    left: 16px !important;
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    padding: 8px 16px !important;
+    border-radius: 999px !important;
 }
 
 .lfa-thumbs {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 8px;
+    display: flex !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    padding-bottom: 8px !important;
 }
 
 .lfa-thumb {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    flex-shrink: 0;
-    transition: border-color 0.2s;
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    border: 2px solid transparent !important;
+    flex-shrink: 0 !important;
+    transition: border-color 0.2s !important;
 }
 
 .lfa-thumb.active,
 .lfa-thumb:hover {
-    border-color: #059669;
+    border-color: #059669 !important;
 }
 
 .lfa-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
 }
 
 /* Details */
 .lfa-single-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: #292524;
-    margin: 0 0 16px;
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: #292524 !important;
+    margin: 0 0 16px !important;
 }
 
 .lfa-single-location {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #57534e;
-    margin-bottom: 24px;
-    font-size: 16px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #57534e !important;
+    margin-bottom: 24px !important;
+    font-size: 16px !important;
 }
 
 .lfa-details-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 24px;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    margin-bottom: 24px !important;
 }
 
 .lfa-detail-box {
-    background: #fff;
-    padding: 16px;
-    border-radius: 8px;
-    border: 1px solid #e7e5e4;
+    background: #fff !important;
+    padding: 16px !important;
+    border-radius: 8px !important;
+    border: 1px solid #e7e5e4 !important;
 }
 
 .lfa-detail-label {
-    font-size: 12px;
-    color: #78716c;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 4px;
+    font-size: 12px !important;
+    color: #78716c !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 4px !important;
 }
 
 .lfa-detail-value {
-    font-weight: 600;
-    color: #292524;
+    font-weight: 600 !important;
+    color: #292524 !important;
 }
 
 .lfa-description {
-    margin-bottom: 24px;
+    margin-bottom: 24px !important;
 }
 
 .lfa-description h2 {
-    font-size: 20px;
-    margin: 0 0 12px;
+    font-size: 20px !important;
+    margin: 0 0 12px !important;
 }
 
 .lfa-description-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #e7e5e4;
-    line-height: 1.7;
+    background: #fff !important;
+    padding: 20px !important;
+    border-radius: 8px !important;
+    border: 1px solid #e7e5e4 !important;
+    line-height: 1.7 !important;
 }
 
 /* Contact box */
 .lfa-contact-box {
-    background: #ecfdf5;
-    border: 1px solid #a7f3d0;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin-bottom: 24px !important;
 }
 
 .lfa-contact-box h3 {
-    color: #065f46;
-    margin: 0 0 8px;
+    color: #065f46 !important;
+    margin: 0 0 8px !important;
 }
 
 .lfa-contact-box p {
-    color: #047857;
-    margin: 0 0 16px;
+    color: #047857 !important;
+    margin: 0 0 16px !important;
 }
 
 .lfa-contact-btns {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    display: flex !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
 }
 
 .lfa-btn-call {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #059669;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: #059669 !important;
     color: #fff !important;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.2s;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
 }
 
 .lfa-btn-call:hover {
-    background: #047857;
+    background: #047857 !important;
     color: #fff !important;
 }
 
 .lfa-btn-msg {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #fff;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: #fff !important;
     color: #292524 !important;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    border: 1px solid #d6d3d1;
-    transition: all 0.2s;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    border: 1px solid #d6d3d1 !important;
+    transition: all 0.2s !important;
 }
 
 .lfa-btn-msg:hover {
-    border-color: #059669;
+    border-color: #059669 !important;
     color: #059669 !important;
 }
 
 /* Reunited box */
 .lfa-reunited-box {
-    background: #d1fae5;
-    border: 1px solid #a7f3d0;
-    border-radius: 12px;
-    padding: 32px;
-    text-align: center;
-    margin-bottom: 24px;
+    background: #d1fae5 !important;
+    border: 1px solid #a7f3d0 !important;
+    border-radius: 12px !important;
+    padding: 32px !important;
+    text-align: center !important;
+    margin-bottom: 24px !important;
 }
 
 .lfa-reunited-box h3 {
-    color: #065f46;
-    font-size: 24px;
-    margin: 8px 0;
+    color: #065f46 !important;
+    font-size: 24px !important;
+    margin: 8px 0 !important;
 }
 
 .lfa-reunited-box p {
-    color: #047857;
-    margin: 0;
+    color: #047857 !important;
+    margin: 0 !important;
 }
 
 /* Share */
 .lfa-share {
-    margin-top: 24px;
+    margin-top: 24px !important;
 }
 
 .lfa-share-label {
-    font-size: 12px;
-    color: #78716c;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
+    font-size: 12px !important;
+    color: #78716c !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 12px !important;
 }
 
 .lfa-share-btns {
-    display: flex;
-    gap: 8px;
+    display: flex !important;
+    gap: 8px !important;
 }
 
 .lfa-share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
     color: #fff !important;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s !important;
 }
 
 .lfa-share-btn:hover {
-    opacity: 0.9;
+    opacity: 0.9 !important;
     color: #fff !important;
 }
 
-.lfa-share-fb { background: #1877f2; }
-.lfa-share-tw { background: #0ea5e9; }
-.lfa-share-wa { background: #25d366; }
+.lfa-share-fb { background: #1877f2 !important; }
+.lfa-share-tw { background: #0ea5e9 !important; }
+.lfa-share-wa { background: #25d366 !important; }
 
 /* Back link */
 .lfa-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #57534e;
-    text-decoration: none;
-    margin-top: 32px;
-    font-weight: 500;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #57534e !important;
+    text-decoration: none !important;
+    margin-top: 32px !important;
+    font-weight: 500 !important;
 }
 
 .lfa-back:hover {
-    color: #059669;
+    color: #059669 !important;
 }
 
 /* Lightbox */
 .lfa-lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    z-index: 99999;
-    display: none;
-    align-items: center;
-    justify-content: center;
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0,0,0,0.9) !important;
+    z-index: 99999 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .lfa-lightbox.active {
-    display: flex;
+    display: flex !important;
 }
 
 .lfa-lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    object-fit: contain !important;
 }
 
 .lfa-lb-close,
 .lfa-lb-prev,
 .lfa-lb-next {
-    position: absolute;
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 12px;
-    font-size: 32px;
-    line-height: 1;
+    position: absolute !important;
+    background: none !important;
+    border: none !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    padding: 12px !important;
+    font-size: 32px !important;
+    line-height: 1 !important;
 }
 
-.lfa-lb-close { top: 16px; right: 16px; }
-.lfa-lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
-.lfa-lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+.lfa-lb-close { top: 16px !important; right: 16px !important; }
+.lfa-lb-prev { left: 16px !important; top: 50% !important; transform: translateY(-50%) !important; }
+.lfa-lb-next { right: 16px !important; top: 50% !important; transform: translateY(-50%) !important; }
 
 .lfa-lb-counter {
-    position: absolute;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #fff;
-    font-size: 14px;
+    position: absolute !important;
+    bottom: 16px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    color: #fff !important;
+    font-size: 14px !important;
 }

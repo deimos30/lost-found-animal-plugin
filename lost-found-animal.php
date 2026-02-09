@@ -3,7 +3,7 @@
  * Plugin Name: Lost & Found Animal
  * Plugin URI: https://github.com/deimos30/lost-found-animal-plugin
  * Description: Manage lost and found animals with photo gallery, filtering, and shortcode display. Works with any theme.
- * Version: 1.0.3
+ * Version: 1.0.5
  * Author: Wojtek Kobylecki / Bella Design Studio
  * Author URI: https://github.com/deimos30
  * License: GPL v2 or later
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'LFA_VERSION', '1.0.3' );
+define( 'LFA_VERSION', '1.0.5' );
 define( 'LFA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LFA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'LFA_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -64,6 +64,7 @@ final class Lost_Found_Animal {
         require_once LFA_PLUGIN_DIR . 'includes/class-meta-boxes.php';
         require_once LFA_PLUGIN_DIR . 'includes/class-shortcodes.php';
         require_once LFA_PLUGIN_DIR . 'includes/class-admin.php';
+        require_once LFA_PLUGIN_DIR . 'includes/class-settings.php';
     }
 
     /**
@@ -73,6 +74,7 @@ final class Lost_Found_Animal {
         add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
         add_action( 'after_setup_theme', array( $this, 'image_sizes' ) );
+        add_action( 'wp_head', array( $this, 'custom_dynamic_css' ), 100 );
 
         register_activation_hook( __FILE__, array( $this, 'activate' ) );
         register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
@@ -108,6 +110,82 @@ final class Lost_Found_Animal {
     }
 
     /**
+     * Output dynamic CSS from Settings
+     */
+    public function custom_dynamic_css() {
+        global $post;
+
+        // Only output on pages with shortcode or single animal
+        $should_output = false;
+        if ( is_singular( 'animal' ) ) {
+            $should_output = true;
+        } elseif ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'lost_found_animals' ) ) {
+            $should_output = true;
+        }
+
+        if ( ! $should_output ) {
+            return;
+        }
+
+        $options          = get_option( 'lfa_settings', array() );
+        $filter_color     = ! empty( $options['filter_bar_color'] ) ? $options['filter_bar_color'] : '#f5f5f4';
+        $reset_color      = ! empty( $options['reset_button_color'] ) ? $options['reset_button_color'] : '#e7e5e4';
+        $filter_width     = ! empty( $options['filter_width'] ) ? $options['filter_width'] : 'medium';
+        $filter_alignment = ! empty( $options['filter_alignment'] ) ? $options['filter_alignment'] : 'left';
+
+        // Width values
+        $width_map = array(
+            'compact' => '520px',
+            'medium'  => '720px',
+            'large'   => '920px',
+            'full'    => '100%',
+        );
+        $max_width = isset( $width_map[ $filter_width ] ) ? $width_map[ $filter_width ] : '720px';
+
+        // Alignment margins
+        $margin_left  = '0';
+        $margin_right = 'auto';
+        if ( 'center' === $filter_alignment ) {
+            $margin_left  = 'auto';
+            $margin_right = 'auto';
+        } elseif ( 'right' === $filter_alignment ) {
+            $margin_left  = 'auto';
+            $margin_right = '0';
+        }
+
+        echo '<style id="lfa-dynamic-css">';
+        echo '.lfa-filters{';
+        echo 'background-color:' . esc_attr( $filter_color ) . '!important;';
+        echo 'max-width:' . esc_attr( $max_width ) . '!important;';
+        echo 'margin-left:' . esc_attr( $margin_left ) . '!important;';
+        echo 'margin-right:' . esc_attr( $margin_right ) . '!important;';
+        echo '}';
+        echo '.lfa-reset{background-color:' . esc_attr( $reset_color ) . '!important;}';
+        echo '.lfa-reset:hover{background-color:' . esc_attr( $this->adjust_brightness( $reset_color, -20 ) ) . '!important;}';
+        echo '</style>';
+    }
+
+    /**
+     * Adjust color brightness
+     *
+     * @param string $hex   Hex color.
+     * @param int    $steps Steps to adjust.
+     * @return string
+     */
+    private function adjust_brightness( $hex, $steps ) {
+        $hex = ltrim( $hex, '#' );
+        if ( strlen( $hex ) !== 6 ) {
+            return '#' . $hex;
+        }
+
+        $r = max( 0, min( 255, hexdec( substr( $hex, 0, 2 ) ) + $steps ) );
+        $g = max( 0, min( 255, hexdec( substr( $hex, 2, 2 ) ) + $steps ) );
+        $b = max( 0, min( 255, hexdec( substr( $hex, 4, 2 ) ) + $steps ) );
+
+        return '#' . sprintf( '%02x%02x%02x', $r, $g, $b );
+    }
+
+    /**
      * Enqueue admin scripts and styles
      *
      * @param string $hook Current admin page hook.
@@ -120,6 +198,13 @@ final class Lost_Found_Animal {
             wp_enqueue_style( 'lfa-admin', LFA_PLUGIN_URL . 'assets/css/admin.css', array(), LFA_VERSION );
             wp_enqueue_script( 'lfa-admin', LFA_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), LFA_VERSION, true );
         }
+
+        // Settings page - color picker
+        if ( 'animal_page_lfa-settings' === $hook ) {
+            wp_enqueue_style( 'wp-color-picker' );
+            wp_enqueue_script( 'wp-color-picker' );
+            wp_enqueue_style( 'lfa-admin', LFA_PLUGIN_URL . 'assets/css/admin.css', array(), LFA_VERSION );
+        }
     }
 
     /**
@@ -127,6 +212,27 @@ final class Lost_Found_Animal {
      */
     public function activate() {
         LFA_Post_Type::instance()->register();
+
+        // Set default options
+        $defaults = array(
+            'columns'            => 4,
+            'limit'              => -1,
+            'show_filters'       => 'yes',
+            'filter_width'       => 'medium',
+            'filter_alignment'   => 'left',
+            'filter_bar_color'   => '#f5f5f4',
+            'reset_button_color' => '#e7e5e4',
+        );
+
+        $existing = get_option( 'lfa_settings', array() );
+        if ( empty( $existing ) ) {
+            add_option( 'lfa_settings', $defaults );
+        } else {
+            // Merge new defaults with existing (for upgrades)
+            $merged = array_merge( $defaults, $existing );
+            update_option( 'lfa_settings', $merged );
+        }
+
         flush_rewrite_rules();
     }
 
@@ -157,6 +263,18 @@ add_action( 'plugins_loaded', 'lfa' );
  */
 function lfa_get_meta( $post_id, $key ) {
     return get_post_meta( $post_id, '_lfa_' . $key, true );
+}
+
+/**
+ * Get plugin setting
+ *
+ * @param string $key     Setting key.
+ * @param mixed  $default Default value.
+ * @return mixed
+ */
+function lfa_get_setting( $key, $default = '' ) {
+    $options = get_option( 'lfa_settings', array() );
+    return isset( $options[ $key ] ) ? $options[ $key ] : $default;
 }
 
 /**

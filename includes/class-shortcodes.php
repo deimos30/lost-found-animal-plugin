@@ -4,7 +4,7 @@
  *
  * @package Lost_Found_Animal
  * @author  Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.3
+ * @version 1.0.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -50,15 +50,28 @@ class LFA_Shortcodes {
      * @return string
      */
     public function render_grid( $atts ) {
+        // Get defaults from settings
+        $default_columns      = lfa_get_setting( 'columns', 4 );
+        $default_limit        = lfa_get_setting( 'limit', -1 );
+        $default_show_filters = lfa_get_setting( 'show_filters', 'yes' );
+
         $atts = shortcode_atts(
             array(
-                'limit'        => -1,
+                'limit'        => $default_limit,
                 'status'       => '',
-                'columns'      => 4,
-                'show_filters' => 'true',
+                'columns'      => $default_columns,
+                'show_filters' => $default_show_filters,
             ),
             $atts
         );
+
+        // Normalize show_filters value
+        $show_filters = $atts['show_filters'];
+        if ( 'false' === $show_filters || 'no' === $show_filters || false === $show_filters ) {
+            $show_filters = false;
+        } else {
+            $show_filters = true;
+        }
 
         $args = array(
             'post_type'      => 'animal',
@@ -86,45 +99,41 @@ class LFA_Shortcodes {
         ?>
         <div class="lfa-container">
 
-            <?php if ( 'true' === $atts['show_filters'] ) : ?>
+            <?php if ( $show_filters ) : ?>
             <div class="lfa-filters">
-                <div class="lfa-filters-row">
-                    <span class="lfa-count">
-                        <?php
-                        printf(
-                            /* translators: %s: number of animals */
-                            esc_html__( 'Showing %s animal(s)', 'lost-found-animal' ),
-                            '<span id="lfa-count">' . esc_html( $query->found_posts ) . '</span>'
-                        );
-                        ?>
-                    </span>
+                <select id="lfa-filter-status" class="lfa-select">
+                    <option value=""><?php esc_html_e( 'All Status', 'lost-found-animal' ); ?></option>
+                    <option value="Found Today"><?php esc_html_e( 'Found Today', 'lost-found-animal' ); ?></option>
+                    <option value="Found"><?php esc_html_e( 'Found', 'lost-found-animal' ); ?></option>
+                    <option value="Available"><?php esc_html_e( 'Available', 'lost-found-animal' ); ?></option>
+                    <option value="Reunited"><?php esc_html_e( 'Reunited', 'lost-found-animal' ); ?></option>
+                    <option value="Not Available"><?php esc_html_e( 'Not Available', 'lost-found-animal' ); ?></option>
+                </select>
 
-                    <div class="lfa-controls">
-                        <select id="lfa-filter-status" class="lfa-select">
-                            <option value=""><?php esc_html_e( 'All Status', 'lost-found-animal' ); ?></option>
-                            <option value="Found Today"><?php esc_html_e( 'Found Today', 'lost-found-animal' ); ?></option>
-                            <option value="Found"><?php esc_html_e( 'Found', 'lost-found-animal' ); ?></option>
-                            <option value="Available"><?php esc_html_e( 'Available', 'lost-found-animal' ); ?></option>
-                            <option value="Reunited"><?php esc_html_e( 'Reunited', 'lost-found-animal' ); ?></option>
-                            <option value="Not Available"><?php esc_html_e( 'Not Available', 'lost-found-animal' ); ?></option>
-                        </select>
+                <select id="lfa-filter-gender" class="lfa-select">
+                    <option value=""><?php esc_html_e( 'All Genders', 'lost-found-animal' ); ?></option>
+                    <option value="Male"><?php esc_html_e( 'Male', 'lost-found-animal' ); ?></option>
+                    <option value="Female"><?php esc_html_e( 'Female', 'lost-found-animal' ); ?></option>
+                </select>
 
-                        <select id="lfa-filter-gender" class="lfa-select">
-                            <option value=""><?php esc_html_e( 'All Genders', 'lost-found-animal' ); ?></option>
-                            <option value="Male"><?php esc_html_e( 'Male', 'lost-found-animal' ); ?></option>
-                            <option value="Female"><?php esc_html_e( 'Female', 'lost-found-animal' ); ?></option>
-                        </select>
+                <select id="lfa-sort" class="lfa-select">
+                    <option value="newest"><?php esc_html_e( 'Newest First', 'lost-found-animal' ); ?></option>
+                    <option value="oldest"><?php esc_html_e( 'Oldest First', 'lost-found-animal' ); ?></option>
+                    <option value="name-asc"><?php esc_html_e( 'Name A-Z', 'lost-found-animal' ); ?></option>
+                    <option value="name-desc"><?php esc_html_e( 'Name Z-A', 'lost-found-animal' ); ?></option>
+                </select>
 
-                        <select id="lfa-sort" class="lfa-select">
-                            <option value="newest"><?php esc_html_e( 'Newest First', 'lost-found-animal' ); ?></option>
-                            <option value="oldest"><?php esc_html_e( 'Oldest First', 'lost-found-animal' ); ?></option>
-                            <option value="name-asc"><?php esc_html_e( 'Name A-Z', 'lost-found-animal' ); ?></option>
-                            <option value="name-desc"><?php esc_html_e( 'Name Z-A', 'lost-found-animal' ); ?></option>
-                        </select>
+                <button type="button" id="lfa-reset" class="lfa-reset"><?php esc_html_e( 'Reset', 'lost-found-animal' ); ?></button>
 
-                        <button type="button" id="lfa-reset" class="lfa-reset"><?php esc_html_e( 'Reset', 'lost-found-animal' ); ?></button>
-                    </div>
-                </div>
+                <span class="lfa-count">
+                    <?php
+                    printf(
+                        /* translators: %s: number of animals */
+                        esc_html__( 'Showing %s animal(s)', 'lost-found-animal' ),
+                        '<span id="lfa-count">' . esc_html( $query->found_posts ) . '</span>'
+                    );
+                    ?>
+                </span>
             </div>
             <?php endif; ?>
 

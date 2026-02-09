@@ -4,17 +4,15 @@
  *
  * @package Lost_Found_Animal
  * @author  Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.3
+ * @version 1.0.5
  */
 
-// Prevent direct access
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 get_header();
 
-// Get meta
 $type       = lfa_get_meta( get_the_ID(), 'type' );
 $status     = lfa_get_meta( get_the_ID(), 'status' );
 $location   = lfa_get_meta( get_the_ID(), 'location' );
@@ -35,7 +33,6 @@ if ( empty( $type ) ) {
 
 <div class="lfa-single">
 
-    <!-- Breadcrumb -->
     <nav class="lfa-breadcrumb">
         <a href="<?php echo esc_url( home_url() ); ?>"><?php esc_html_e( 'Home', 'lost-found-animal' ); ?></a>
         <span>&rsaquo;</span>
@@ -44,7 +41,6 @@ if ( empty( $type ) ) {
 
     <div class="lfa-single-grid">
 
-        <!-- Left: Gallery -->
         <div class="lfa-gallery-col">
             <div class="lfa-main-photo">
                 <?php if ( ! empty( $images ) ) : ?>
@@ -54,7 +50,6 @@ if ( empty( $type ) ) {
                         <span><?php esc_html_e( 'No Photo', 'lost-found-animal' ); ?></span>
                     </div>
                 <?php endif; ?>
-
                 <span class="lfa-main-badge" style="background:<?php echo esc_attr( $badge['color'] ); ?>;">
                     <?php echo esc_html( $badge['text'] ); ?>
                 </span>
@@ -63,8 +58,7 @@ if ( empty( $type ) ) {
             <?php if ( count( $images ) > 1 ) : ?>
                 <div class="lfa-thumbs">
                     <?php foreach ( $images as $i => $img ) : ?>
-                        <div class="lfa-thumb <?php echo 0 === $i ? 'active' : ''; ?>"
-                             data-full="<?php echo esc_url( $img['full'] ); ?>">
+                        <div class="lfa-thumb <?php echo 0 === $i ? 'active' : ''; ?>" data-full="<?php echo esc_url( $img['full'] ); ?>">
                             <img src="<?php echo esc_url( $img['thumb'] ); ?>" alt="">
                         </div>
                     <?php endforeach; ?>
@@ -72,7 +66,6 @@ if ( empty( $type ) ) {
             <?php endif; ?>
         </div>
 
-        <!-- Right: Details -->
         <div class="lfa-details-col">
             <h1 class="lfa-single-title"><?php the_title(); ?></h1>
 
@@ -82,7 +75,6 @@ if ( empty( $type ) ) {
                 </div>
             <?php endif; ?>
 
-            <!-- Details Grid -->
             <div class="lfa-details-grid">
                 <?php if ( $type ) : ?>
                     <div class="lfa-detail-box">
@@ -90,42 +82,36 @@ if ( empty( $type ) ) {
                         <div class="lfa-detail-value"><?php echo esc_html( $type ); ?></div>
                     </div>
                 <?php endif; ?>
-
                 <?php if ( $breed ) : ?>
                     <div class="lfa-detail-box">
                         <div class="lfa-detail-label"><?php esc_html_e( 'Breed', 'lost-found-animal' ); ?></div>
                         <div class="lfa-detail-value"><?php echo esc_html( $breed ); ?></div>
                     </div>
                 <?php endif; ?>
-
                 <?php if ( $gender ) : ?>
                     <div class="lfa-detail-box">
                         <div class="lfa-detail-label"><?php esc_html_e( 'Gender', 'lost-found-animal' ); ?></div>
                         <div class="lfa-detail-value"><?php echo esc_html( $gender ); ?></div>
                     </div>
                 <?php endif; ?>
-
                 <?php if ( $age ) : ?>
                     <div class="lfa-detail-box">
                         <div class="lfa-detail-label"><?php esc_html_e( 'Age', 'lost-found-animal' ); ?></div>
                         <div class="lfa-detail-value"><?php echo esc_html( $age ); ?></div>
                     </div>
                 <?php endif; ?>
-
                 <?php if ( $color ) : ?>
                     <div class="lfa-detail-box">
                         <div class="lfa-detail-label"><?php esc_html_e( 'Color', 'lost-found-animal' ); ?></div>
                         <div class="lfa-detail-value"><?php echo esc_html( $color ); ?></div>
                     </div>
                 <?php endif; ?>
-
                 <?php if ( $found_date ) : ?>
                     <div class="lfa-detail-box">
                         <div class="lfa-detail-label"><?php esc_html_e( 'Date Found', 'lost-found-animal' ); ?></div>
                         <div class="lfa-detail-value"><?php echo esc_html( date_i18n( 'j F Y', strtotime( $found_date ) ) ); ?></div>
                     </div>
                 <?php endif; ?>
-
                 <?php if ( $microchip ) : ?>
                     <div class="lfa-detail-box">
                         <div class="lfa-detail-label"><?php esc_html_e( 'Microchip', 'lost-found-animal' ); ?></div>
@@ -134,44 +120,20 @@ if ( empty( $type ) ) {
                 <?php endif; ?>
             </div>
 
-            <!-- Description -->
             <?php if ( get_the_content() ) : ?>
                 <div class="lfa-description">
-                    <h2>
-                        <?php
-                        printf(
-                            /* translators: %s: animal type */
-                            esc_html__( 'About This %s', 'lost-found-animal' ),
-                            esc_html( $type )
-                        );
-                        ?>
-                    </h2>
-                    <div class="lfa-description-content">
-                        <?php the_content(); ?>
-                    </div>
+                    <h2><?php printf( esc_html__( 'About This %s', 'lost-found-animal' ), esc_html( $type ) ); ?></h2>
+                    <div class="lfa-description-content"><?php the_content(); ?></div>
                 </div>
             <?php endif; ?>
 
-            <!-- Contact Box -->
             <?php if ( 'Reunited' !== $status && 'Not Available' !== $status ) : ?>
                 <div class="lfa-contact-box">
-                    <h3>
-                        <?php
-                        printf(
-                            /* translators: %s: animal type (lowercase) */
-                            esc_html__( 'Is this your %s?', 'lost-found-animal' ),
-                            esc_html( strtolower( $type ) )
-                        );
-                        ?>
-                    </h3>
+                    <h3><?php printf( esc_html__( 'Is this your %s?', 'lost-found-animal' ), esc_html( strtolower( $type ) ) ); ?></h3>
                     <p><?php esc_html_e( 'If you recognize this animal, please contact us immediately.', 'lost-found-animal' ); ?></p>
                     <div class="lfa-contact-btns">
-                        <a href="tel:+441234567890" class="lfa-btn-call">
-                            &#128222; <?php esc_html_e( 'Call Us', 'lost-found-animal' ); ?>
-                        </a>
-                        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="lfa-btn-msg">
-                            &#9993; <?php esc_html_e( 'Send Message', 'lost-found-animal' ); ?>
-                        </a>
+                        <a href="tel:+441234567890" class="lfa-btn-call">&#128222; <?php esc_html_e( 'Call Us', 'lost-found-animal' ); ?></a>
+                        <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="lfa-btn-msg">&#9993; <?php esc_html_e( 'Send Message', 'lost-found-animal' ); ?></a>
                     </div>
                 </div>
             <?php elseif ( 'Reunited' === $status ) : ?>
@@ -187,28 +149,20 @@ if ( empty( $type ) ) {
                 </div>
             <?php endif; ?>
 
-            <!-- Share -->
             <div class="lfa-share">
                 <div class="lfa-share-label"><?php esc_html_e( 'Share', 'lost-found-animal' ); ?></div>
                 <div class="lfa-share-btns">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_url( rawurlencode( get_permalink() ) ); ?>"
-                       target="_blank" rel="noopener noreferrer" class="lfa-share-btn lfa-share-fb">Facebook</a>
-                    <a href="https://twitter.com/intent/tweet?url=<?php echo esc_url( rawurlencode( get_permalink() ) ); ?>&amp;text=<?php echo esc_attr( rawurlencode( get_the_title() ) ); ?>"
-                       target="_blank" rel="noopener noreferrer" class="lfa-share-btn lfa-share-tw">Twitter</a>
-                    <a href="https://wa.me/?text=<?php echo esc_url( rawurlencode( get_the_title() . ' - ' . get_permalink() ) ); ?>"
-                       target="_blank" rel="noopener noreferrer" class="lfa-share-btn lfa-share-wa">WhatsApp</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_url( rawurlencode( get_permalink() ) ); ?>" target="_blank" rel="noopener noreferrer" class="lfa-share-btn lfa-share-fb">Facebook</a>
+                    <a href="https://twitter.com/intent/tweet?url=<?php echo esc_url( rawurlencode( get_permalink() ) ); ?>&amp;text=<?php echo esc_attr( rawurlencode( get_the_title() ) ); ?>" target="_blank" rel="noopener noreferrer" class="lfa-share-btn lfa-share-tw">Twitter</a>
+                    <a href="https://wa.me/?text=<?php echo esc_url( rawurlencode( get_the_title() . ' - ' . get_permalink() ) ); ?>" target="_blank" rel="noopener noreferrer" class="lfa-share-btn lfa-share-wa">WhatsApp</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Back link -->
-    <a href="javascript:history.back();" class="lfa-back">
-        &larr; <?php esc_html_e( 'Back', 'lost-found-animal' ); ?>
-    </a>
+    <a href="javascript:history.back();" class="lfa-back">&larr; <?php esc_html_e( 'Back', 'lost-found-animal' ); ?></a>
 </div>
 
-<!-- Lightbox -->
 <?php if ( count( $images ) > 0 ) : ?>
 <div class="lfa-lightbox">
     <button class="lfa-lb-close" type="button">&times;</button>

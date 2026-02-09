@@ -2,7 +2,7 @@
  * Lost & Found Animal - Admin Styles
  *
  * @author  Wojtek Kobylecki / Bella Design Studio
- * @version 1.0.3
+ * @version 1.0.5
  */
 
 .lfa-help-box {
@@ -37,7 +37,6 @@
     max-width: 320px;
 }
 
-/* Gallery */
 #lfa-gallery-wrapper {
     padding: 10px 0;
 }
@@ -104,4 +103,8 @@
 
 .lfa-remove-image:hover {
     background: #c82333;
+}
+
+.wp-picker-container {
+    display: inline-block;
 }
